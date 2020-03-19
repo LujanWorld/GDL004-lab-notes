@@ -1,39 +1,79 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends React.Component {
+  state = {
+    notes: [
+      {
+        id: 1,
+        text: 'lala'
+      },
+      {
+        id: 2,
+        text: 'lala2\nlalala'
+      },
+      {
+        id: 3,
+        text: 'lal4444\nlalala'
+      }
+    ]
+  };
+
+  getTitle = text => text.split('\n')[0];
+
+  getNextId = () => this.state.notes.length + 1;
+
+  handleCreate = () => {
+    console.log('handleCreate');
+    let emptyNote = {
+      id: this.getNextId(),
+      text: ''
+    };
+
+    let notes = this.state.notes;
+    notes.push(emptyNote);
+
+    this.setState({
+      notes: notes
+    });
+  };
+
   render() {
     return (
       <Container className="p-3">
         <Jumbotron>
           <h1>MyNotes</h1>
-          <Button variant="success">Register!</Button>{' '}
         </Jumbotron>
 
         <Row noGutters>
           <Col>
             <ListGroup>
-              <Button variant="outline-danger">Delete</Button>{' '}
-              <Button variant="outline-info">Edit</Button>{' '}
-              <Button variant="outline-primary">Create note</Button>{' '}
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+              <Button variant="outline-primary" onClick={this.handleCreate}>
+                Create note
+              </Button>
+              {this.state.notes.map(note => {
+                return (
+                  <ListGroup.Item key={note.id} active={note.id == 2}>
+                    {this.getTitle(note.text)}
+                  </ListGroup.Item>
+                );
+              })}
             </ListGroup>
           </Col>
           <Col xs={8}>
             <Form>
               <Form.Control as="textarea"></Form.Control>
+              <br />
+              <Button variant="outline-danger">Delete</Button>{' '}
             </Form>
           </Col>
         </Row>
@@ -41,33 +81,5 @@ class App extends React.Component {
     );
   }
 }
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           {/* Edit <code>src/App.js</code> and save to reload. */}
-//           <b>My Notebook</b>
-//           <br></br>
-//           <input
-//             id="txtEmail"
-//             type="email"
-//             class="login-input"
-//             placeholder="ejemplo@ejemplo.com"
-//           />
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Register
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;
