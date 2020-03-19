@@ -10,8 +10,14 @@ import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+/*
+ - The text-area should show text of the active note.
+*/
+
 class App extends React.Component {
   state = {
+    active: 1,
+
     notes: [
       {
         id: 1,
@@ -38,7 +44,6 @@ class App extends React.Component {
       id: this.getNextId(),
       text: ''
     };
-
     let notes = this.state.notes;
     notes.push(emptyNote);
 
@@ -46,7 +51,12 @@ class App extends React.Component {
       notes: notes
     });
   };
-
+  handleSelect = id => {
+    console.log('handleSelect', id);
+    this.setState({
+      active: id
+    });
+  };
   render() {
     return (
       <Container className="p-3">
@@ -62,7 +72,13 @@ class App extends React.Component {
               </Button>
               {this.state.notes.map(note => {
                 return (
-                  <ListGroup.Item key={note.id} active={note.id == 2}>
+                  <ListGroup.Item
+                    key={note.id}
+                    active={note.id === this.state.active}
+                    onClick={() => {
+                      this.handleSelect(note.id);
+                    }}
+                  >
                     {this.getTitle(note.text)}
                   </ListGroup.Item>
                 );
