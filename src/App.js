@@ -21,15 +21,15 @@ class App extends React.Component {
     notes: [
       {
         id: 1,
-        text: 'lala'
+        text: 'English book page 34-89'
       },
       {
         id: 2,
-        text: 'lala2\nlalala'
+        text: 'Sustainability is the way\nthe planet heart is healing'
       },
       {
         id: 3,
-        text: 'lal4444\nlalala'
+        text: 'Vegan dinosaurs\nOracle, IBM'
       }
     ]
   };
@@ -37,6 +37,15 @@ class App extends React.Component {
   getTitle = text => text.split('\n')[0];
 
   getNextId = () => this.state.notes.length + 1;
+
+  getActiveNote = () => {
+    for (let i = 0; i < this.state.notes.length; i++) {
+      console.log(this.state.notes[i]);
+      if (this.state.notes[i].id === this.state.active) {
+        return this.state.notes[i];
+      }
+    }
+  };
 
   handleCreate = () => {
     console.log('handleCreate');
@@ -52,12 +61,13 @@ class App extends React.Component {
     });
   };
   handleSelect = id => {
-    console.log('handleSelect', id);
+    // console.log('handleSelect', id);
     this.setState({
       active: id
     });
   };
   render() {
+    console.log('Active note', this.getActiveNote());
     return (
       <Container className="p-3">
         <Jumbotron>
@@ -87,7 +97,10 @@ class App extends React.Component {
           </Col>
           <Col xs={8}>
             <Form>
-              <Form.Control as="textarea"></Form.Control>
+              <Form.Control
+                as="textarea"
+                value={this.getActiveNote().text}
+              ></Form.Control>
               <br />
               <Button variant="outline-danger">Delete</Button>{' '}
             </Form>
