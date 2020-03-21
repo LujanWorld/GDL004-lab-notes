@@ -12,6 +12,7 @@ import './App.css';
 
 /*
  - The text-area should show text of the active note.
+ get empty note as a text
 */
 
 class App extends React.Component {
@@ -34,18 +35,33 @@ class App extends React.Component {
     ]
   };
 
-  getTitle = text => text.split('\n')[0];
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  getTitle = text => {
+    let title = text.split('\n')[0];
+    if (title === '') {
+      return 'Empty note';
+    }
+    return title;
+  };
 
   getNextId = () => this.state.notes.length + 1;
 
   getActiveNote = () => {
     for (let i = 0; i < this.state.notes.length; i++) {
-      console.log(this.state.notes[i]);
       if (this.state.notes[i].id === this.state.active) {
         return this.state.notes[i];
       }
     }
   };
+
+  handleChange(event) {
+    this.getActiveNote().text = event.target.value;
+    this.setState({ notes: this.state.notes });
+  }
 
   handleCreate = () => {
     console.log('handleCreate');
@@ -54,14 +70,15 @@ class App extends React.Component {
       text: ''
     };
     let notes = this.state.notes;
-    notes.push(emptyNote);
+    notes.unshift(emptyNote);
 
     this.setState({
-      notes: notes
+      notes: notes,
+      active: emptyNote.id
     });
   };
+
   handleSelect = id => {
-    // console.log('handleSelect', id);
     this.setState({
       active: id
     });
@@ -100,6 +117,7 @@ class App extends React.Component {
               <Form.Control
                 as="textarea"
                 value={this.getActiveNote().text}
+                onChange={this.handleChange}
               ></Form.Control>
               <br />
               <Button variant="outline-danger">Delete</Button>{' '}
