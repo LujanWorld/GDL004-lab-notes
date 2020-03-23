@@ -11,8 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 /*
- - The text-area should show text of the active note.
- get empty note as a text
+ - The delete button.
+ 
 */
 
 class App extends React.Component {
@@ -62,6 +62,11 @@ class App extends React.Component {
     this.getActiveNote().text = event.target.value;
     this.setState({ notes: this.state.notes });
   }
+  removeNotes(event) {
+    const deNote = this.state.notes.deNote;
+    this.getActiveNote().text = event.target.value;
+    this.setState({ deNote });
+  }
 
   handleCreate = () => {
     console.log('handleCreate');
@@ -83,6 +88,7 @@ class App extends React.Component {
       active: id
     });
   };
+
   render() {
     console.log('Active note', this.getActiveNote());
     return (
@@ -120,7 +126,12 @@ class App extends React.Component {
                 onChange={this.handleChange}
               ></Form.Control>
               <br />
-              <Button variant="outline-danger">Delete</Button>{' '}
+              <Button
+                variant="outline-danger"
+                onClick={event => this.removeNotes(event)}
+              >
+                Delete
+              </Button>{' '}
             </Form>
           </Col>
         </Row>
