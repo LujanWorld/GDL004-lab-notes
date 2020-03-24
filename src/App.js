@@ -11,8 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 /*
- - The delete button.
- 
+ - Disable delete button if there is nothing to delete.
 */
 
 class App extends React.Component {
@@ -20,18 +19,18 @@ class App extends React.Component {
     active: 1,
 
     notes: [
-      {
-        id: 1,
-        text: 'English book page 34-89'
-      },
-      {
-        id: 2,
-        text: 'Sustainability is the way\nthe planet heart is healing'
-      },
-      {
-        id: 3,
-        text: 'Vegan dinosaurs\nOracle, IBM'
-      }
+      // {
+      //   id: 1,
+      //   text: 'English book page 34-89'
+      // },
+      // {
+      //   id: 2,
+      //   text: 'Sustainability is the way\nthe planet heart is healing'
+      // },
+      // {
+      //   id: 3,
+      //   text: 'Vegan dinosaurs\nOracle, IBM'
+      // }
     ]
   };
 
@@ -56,16 +55,30 @@ class App extends React.Component {
         return this.state.notes[i];
       }
     }
+    return null;
   };
 
   handleChange(event) {
     this.getActiveNote().text = event.target.value;
     this.setState({ notes: this.state.notes });
   }
-  removeNotes(event) {
-    const deNote = this.state.notes.deNote;
-    this.getActiveNote().text = event.target.value;
-    this.setState({ deNote });
+
+  removeNotes() {
+    const result = this.state.notes.filter(
+      note => note.id !== this.state.active
+    );
+
+    let active = null;
+    if (result.length > 0) {
+      active = result[0].id;
+    }
+
+    // let active = result.length > 0 ? result[0].id : null;
+
+    this.setState({
+      notes: result,
+      active: active
+    });
   }
 
   handleCreate = () => {
@@ -90,7 +103,9 @@ class App extends React.Component {
   };
 
   render() {
-    console.log('Active note', this.getActiveNote());
+    const activeNote = this.getActiveNote();
+    const showForm = activeNote !== null;
+
     return (
       <Container className="p-3">
         <Jumbotron>
@@ -119,20 +134,24 @@ class App extends React.Component {
             </ListGroup>
           </Col>
           <Col xs={8}>
-            <Form>
-              <Form.Control
-                as="textarea"
-                value={this.getActiveNote().text}
-                onChange={this.handleChange}
-              ></Form.Control>
-              <br />
-              <Button
-                variant="outline-danger"
-                onClick={event => this.removeNotes(event)}
-              >
-                Delete
-              </Button>{' '}
-            </Form>
+            {showForm ? (
+              <Form>
+                <Form.Control
+                  as="textarea"
+                  value={this.getActiveNote().text}
+                  onChange={this.handleChange}
+                ></Form.Control>
+                <br />
+                <Button
+                  variant="outline-danger"
+                  onClick={event => this.removeNotes(event)}
+                >
+                  Delete
+                </Button>{' '}
+              </Form>
+            ) : (
+              <o>Welcome, create a new note!</o>
+            )}
           </Col>
         </Row>
       </Container>
