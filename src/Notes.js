@@ -24,16 +24,6 @@ class Notes extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // onComponentDidMount() {
-  //   firebase
-  //     .firestore()
-  //     .collection('notes')
-  //     .get()
-  //     .then(result => {
-  //       this.setState({ notes: result });
-  //     });
-  // }
-
   getTitle = text => {
     let title = text.split('\n')[0];
     if (title === '') {

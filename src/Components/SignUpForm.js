@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
+import fire from '../setUp/firebase';
 
 export default class SignUpForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.fire = fire;
+  }
+  singUpEvent = () => {
+    this.fire
+      .createUserWithEamilAndPassword(email, password)
+      .then(data => {
+        this.props.history.push('/sign-in');
+      })
+      .catch(function(error) {
+        console.log(error);
+        alert('Hubo un error');
+      });
+  };
+
   render() {
     return (
       <div className="auth-wrapper">
         <div className="auth-inner">
-          <form>
+          <div>
             <h3>Sign Up</h3>
 
             <div className="form-group">
@@ -40,19 +58,25 @@ export default class SignUpForm extends Component {
               <input
                 type="password"
                 className="form-control"
-                placeholder="Enter password"
+                placeholder="🔒Enter password"
               />
             </div>
 
-            <button type="submit" className="btn btn-primary btn-block">
+            <button
+              className="btn btn-primary btn-block"
+              onClick={this.singUpEvent}
+            >
               Sign Up
             </button>
             <p className="forgot-password text-right">
               Already registered <a href="#">sign in?</a>
             </p>
-          </form>
+          </div>
         </div>
       </div>
     );
   }
 }
+// Sign up = register your details for the first time
+
+// Sign in = log in, notify someone of your arrival
