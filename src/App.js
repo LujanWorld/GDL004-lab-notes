@@ -39,7 +39,7 @@ function App() {
           <Route exact path="/" component={LoginForm} />
           <Route path="/sign-in" component={LoginForm} />
           <Route path="/sign-up" component={SignUpForm} />
-          <Route exact path="/My-notes" component={Notes} />
+          <Route exact path="/My-notes/:noteId?" component={Notes} />
         </Switch>
       </div>
     </Router>

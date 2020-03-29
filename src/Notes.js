@@ -21,6 +21,10 @@ class Notes extends React.Component {
 
   constructor(props) {
     super(props);
+
+    // TODO: Get active id from parameters.
+    console.log(props);
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -48,6 +52,14 @@ class Notes extends React.Component {
     this.setState({ notes: this.state.notes });
   }
 
+  setActive(id) {
+    // TODO: Add router logic.
+
+    this.setState({
+      active: id
+    });
+  }
+
   removeNotes() {
     const result = this.state.notes.filter(
       note => note.id !== this.state.active
@@ -61,9 +73,10 @@ class Notes extends React.Component {
     // let active = result.length > 0 ? result[0].id : null;
 
     this.setState({
-      notes: result,
-      active: active
+      notes: result
     });
+
+    this.setActive(active);
   }
 
   handleCreate = () => {
@@ -76,15 +89,9 @@ class Notes extends React.Component {
     notes.unshift(emptyNote);
 
     this.setState({
-      notes: notes,
-      active: emptyNote.id
+      notes: notes
     });
-  };
-
-  handleSelect = id => {
-    this.setState({
-      active: id
-    });
+    this.setActive(emptyNote.id);
   };
 
   render() {
@@ -110,7 +117,7 @@ class Notes extends React.Component {
                       key={note.id}
                       active={note.id === this.state.active}
                       onClick={() => {
-                        this.handleSelect(note.id);
+                        this.setActive(note.id);
                       }}
                     >
                       {this.getTitle(note.text)}

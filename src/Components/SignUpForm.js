@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import fire from '../setUp/firebase';
+// import fire from '../setUp/firebase';
 
 export default class SignUpForm extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.fire = fire;
-  }
-  singUpEvent = () => {
-    this.fire
-      .createUserWithEamilAndPassword(email, password)
-      .then(data => {
-        this.props.history.push('/sign-in');
-      })
-      .catch(function(error) {
-        console.log(error);
-        alert('Hubo un error');
-      });
-  };
+  //   this.fire = fire;
+  // }
+  // singUpEvent = () => {
+  //   this.fire
+  //     .createUserWithEamilAndPassword(email, password)
+  //     .then(data => {
+  //       this.props.history.push('/sign-in');
+  //     })
+  //     .catch(function(error) {
+  //       console.log(error);
+  //       alert('Hubo un error');
+  //     });
+  // };
 
   render() {
     return (
