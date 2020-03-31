@@ -92,6 +92,19 @@ class Notes extends React.Component {
     });
     this.setActive(emptyNote.id);
   };
+  // componentDidMount() {
+  //   this.authListener();
+  // }
+
+  // authListener() {
+  //   fireConfig.auth().onAuthStateChanged(user => {
+  //     if (user) {
+  //       this.setState({ user });
+  //     } else {
+  //       this.setState({ user: null });
+  //     }
+  //   });
+  // }
 
   render() {
     const activeNote = this.getActiveNote();

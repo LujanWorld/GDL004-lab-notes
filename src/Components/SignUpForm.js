@@ -35,6 +35,7 @@ export default class SignUpForm extends Component {
     });
   }
   onSignUp = () => {
+    const { email, password } = this.state;
     fire
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -85,7 +86,7 @@ export default class SignUpForm extends Component {
                 className="form-control"
                 placeholder="🔒Enter password"
                 name="password"
-                //  value={this.state.password}
+                // value={this.state.password}
                 onChange={this.handleInputChange}
                 className="form-control"
                 placeholder="Repeat  password"

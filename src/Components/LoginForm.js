@@ -36,17 +36,17 @@ export default class LoginForm extends Component {
       [name]: value
     });
   }
-  OnSignInWitnEmailAndPass = () => {
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.props.history.push('/My-notes');
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  // OnSignInWitnEmailAndPass = () => {
+  //   fire
+  //     .auth()
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then(() => {
+  //       this.props.history.push('/My-notes');
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
 
   onGoogleSignInClicked = () => {
     fire
