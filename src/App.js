@@ -1,14 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
-//import firebase
-//user fect compo funcionales
-
 import Notes from './Notes.js';
 import LoginForm from './Components/LoginForm';
 import SignUpForm from './Components/SignUpForm';
 
 function App() {
+  //add and delete notes
+  // notesApp.push().set('test');
+  // notesApp.child('-M3gOQ69uYcy9DUrBUn-').remove();
+  // notesApp.on('value', (a, b) => {
+  //id and value of notes getting notes
+  // console.log('datasnapshot', a.val());
+  // });
+  // const myObj = notesApp.toJSON();
+  // console.log(myObj);
   return (
     <Router>
       <div className="App">
@@ -39,6 +45,7 @@ function App() {
           <Route exact path="/" component={LoginForm} />
           <Route path="/sign-in" component={LoginForm} />
           <Route path="/sign-up" component={SignUpForm} />
+          <Route exact path="/My-notes" component={Notes} />
           <Route exact path="/My-notes/:noteId?" component={Notes} />
         </Switch>
       </div>

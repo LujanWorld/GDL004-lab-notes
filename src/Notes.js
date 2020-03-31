@@ -22,8 +22,7 @@ class Notes extends React.Component {
   constructor(props) {
     super(props);
 
-    // TODO: Get active id from parameters.
-    console.log(props);
+    this.state.active = props.match.params.noteId;
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -53,7 +52,7 @@ class Notes extends React.Component {
   }
 
   setActive(id) {
-    // TODO: Add router logic.
+    this.props.history.push('/My-notes/' + id);
 
     this.setState({
       active: id
@@ -102,7 +101,7 @@ class Notes extends React.Component {
       <div className="App">
         <Container className="p-3">
           <Jumbotron>
-            <h1>MyNotes</h1>
+            <h1>Write it down</h1>
           </Jumbotron>
 
           <Row noGutters>

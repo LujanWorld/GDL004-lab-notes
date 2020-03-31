@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import fire, { provider, auth } from '../firebaseConfig';
+import google from '../img/google.jpeg';
+
 export default class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +19,12 @@ export default class LoginForm extends Component {
     event.preventDefault();
     let { email, password } = this.state;
 
-    if (email === 'lujan@lujan.com' && password === 'lujan') {
-      // Todo: Navigate to notes.
-      this.props.history.push('/My-notes');
-    } else {
-      // Todo: Show error.
-    }
+    // if (email === 'lujan@lujan.com' && password === 'lujan') {
+    //   // Todo: Navigate to notes.
+    //   this.props.history.push('/My-notes');
+    // } else {
+    //   // Todo: Show error.
+    // }
   }
 
   handleInputChange(event) {
@@ -33,6 +36,30 @@ export default class LoginForm extends Component {
       [name]: value
     });
   }
+  OnSignInWitnEmailAndPass = () => {
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.props.history.push('/My-notes');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  onGoogleSignInClicked = () => {
+    fire
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        this.props.history.push('/My-notes');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <div className="auth-wrapper">
@@ -49,6 +76,7 @@ export default class LoginForm extends Component {
                 onChange={this.handleInputChange}
                 className="form-control"
                 placeholder="Enter email"
+                required
               />
             </div>
 
@@ -72,6 +100,13 @@ export default class LoginForm extends Component {
             >
               Submit
             </button>
+            <center>
+              <img
+                src={google}
+                alt="Logo google"
+                onClick={this.onGoogleSignInClicked}
+              />
+            </center>
           </form>
         </div>
       </div>
