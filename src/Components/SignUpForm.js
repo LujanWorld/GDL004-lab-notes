@@ -17,12 +17,12 @@ export default class SignUpForm extends Component {
     event.preventDefault();
     let { email, password } = this.state;
 
-    if (email === 'lujan@lujan.com' && password === 'lujan') {
-      // Todo: Navigate to notes.
-      this.props.history.push('/My-notes');
-    } else {
-      // Todo: Show error.
-    }
+    //   if (email === 'lujan@lujan.com' && password === 'lujan') {
+    //     // Todo: Navigate to notes.
+    //     this.props.history.push('/My-notes');
+    //   } else {
+    //     // Todo: Show error.
+    //   }
   }
 
   handleInputChange(event) {
@@ -85,11 +85,11 @@ export default class SignUpForm extends Component {
                 type="password"
                 className="form-control"
                 placeholder="🔒Enter password"
-                name="password"
-                // value={this.state.password}
+                name="repeatpassword"
+                value={this.state.repeatpassword}
                 onChange={this.handleInputChange}
                 className="form-control"
-                placeholder="Repeat  password"
+                placeholder="Repeat password"
               />
             </div>
 

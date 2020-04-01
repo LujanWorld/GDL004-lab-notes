@@ -36,17 +36,18 @@ export default class LoginForm extends Component {
       [name]: value
     });
   }
-  // OnSignInWitnEmailAndPass = () => {
-  //   fire
-  //     .auth()
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(() => {
-  //       this.props.history.push('/My-notes');
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
+  OnSignInWitnEmailAndPass = () => {
+    const { email, password } = this.state;
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.props.history.push('/My-notes');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   onGoogleSignInClicked = () => {
     fire
@@ -96,7 +97,7 @@ export default class LoginForm extends Component {
               type="submit"
               value="Submit"
               className="btn btn-primary btn-block"
-              onClick={this.handleSubmit}
+              onClick={this.OnSignInWitnEmailAndPass}
             >
               Submit
             </button>

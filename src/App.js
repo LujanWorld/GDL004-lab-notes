@@ -23,6 +23,7 @@ function App() {
             <Link className="navbar-brand" to={'/sign-in'}>
               WriteNotes
             </Link>
+
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
@@ -35,6 +36,11 @@ function App() {
                     Sign up!
                   </Link>
                   {/* <button onClick={this.logout} className="btn btn_red">Log Out</button> */}
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={'/sign-in'}>
+                    Log out
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -54,11 +60,3 @@ function App() {
 }
 
 export default App;
-
-// const isAuth = session.isAuth();
-// return(
-//   <router>
-//     { isAuth ? <private /> : <public />}
-//   </router>
-// )
-// export default router;
