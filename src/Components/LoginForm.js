@@ -36,7 +36,8 @@ export default class LoginForm extends Component {
       [name]: value
     });
   }
-  OnSignInWitnEmailAndPass = () => {
+  OnSignInWitnEmailAndPass = e => {
+    e.preventDefault();
     const { email, password } = this.state;
     fire
       .auth()

@@ -9,7 +9,7 @@ class LogOut extends Component {
       .signOut()
       .then(() => {
         console.log('log out has been successful');
-        this.props.history.push('/');
+        this.props.history.push('/My-notes');
       })
       .catch(error => {
         console.log(error);

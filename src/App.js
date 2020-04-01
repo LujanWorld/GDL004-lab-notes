@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import firebase from 'firebase';
+
 import './App.css';
 import Notes from './Notes.js';
 import LoginForm from './Components/LoginForm';
 import SignUpForm from './Components/SignUpForm';
 
-function App() {
+function App(props) {
+  const [userLoggeado, setUserLoggeado] = useState(false);
+
+  useEffect(() => {
+    const u = !!firebase.auth().currentUser;
+    setUserLoggeado(u);
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      setUserLoggeado(!!user);
+    });
+    return unsubscribe;
+  }, []);
   //add and delete notes
   // notesApp.push().set('test');
   // notesApp.child('-M3gOQ69uYcy9DUrBUn-').remove();
@@ -15,6 +27,18 @@ function App() {
   // });
   // const myObj = notesApp.toJSON();
   // console.log(myObj);
+
+  let logout = null;
+  if (userLoggeado) {
+    logout = (
+      <li className="nav-item">
+        <Link className="nav-link" to={'/sign-in'}>
+          Log out
+        </Link>
+      </li>
+    );
+  }
+
   return (
     <Router>
       <div className="App">
@@ -35,13 +59,8 @@ function App() {
                   <Link className="nav-link" to={'/sign-up'}>
                     Sign up!
                   </Link>
-                  {/* <button onClick={this.logout} className="btn btn_red">Log Out</button> */}
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/sign-in'}>
-                    Log out
-                  </Link>
-                </li>
+                {logout}
               </ul>
             </div>
           </div>
@@ -53,6 +72,7 @@ function App() {
           <Route path="/sign-up" component={SignUpForm} />
           <Route exact path="/My-notes" component={Notes} />
           <Route exact path="/My-notes/:noteId?" component={Notes} />
+          <Route exact path="/sign-in" component={Notes} />
         </Switch>
       </div>
     </Router>

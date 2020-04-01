@@ -44,6 +44,7 @@ export default class SignUpForm extends Component {
       })
       .catch(error => {
         console.log(error);
+        alert('Try again');
       });
   };
 
@@ -111,4 +112,3 @@ export default class SignUpForm extends Component {
     );
   }
 }
-// TODO: 1- colect all the 3 fields handle, the same the login update the state. 2-convert all the html to use react bootstrap. 3- add error to login and sign-up

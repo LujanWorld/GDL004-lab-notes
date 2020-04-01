@@ -155,7 +155,9 @@ class Notes extends React.Component {
                   </Button>{' '}
                 </Form>
               ) : (
-                <h3> Welcome, create a new note!</h3>
+                <center>
+                  <h3> Welcome, create a new note!</h3>
+                </center>
               )}
             </Col>
           </Row>
