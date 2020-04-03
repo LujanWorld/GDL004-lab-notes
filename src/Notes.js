@@ -7,6 +7,9 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import firebase from 'firebase';
+
+import { noteRef } from './firebaseConfig.js';
 
 class Notes extends React.Component {
   state = {
@@ -85,16 +88,35 @@ class Notes extends React.Component {
       text: ''
     };
     let notes = this.state.notes;
-    notes.unshift(emptyNote);
+
+    noteRef
+      .setValue({
+        id: '',
+        notes: notes
+      })
+      .then(response => {
+        this.setState({ note: emptyNotes });
+        return noteRef.get();
+      })
+      .then(response => {
+        this.setState({ notes: response.val() });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    //notes.unshift(emptyNote);
 
     this.setState({
       notes: notes
     });
     this.setActive(emptyNote.id);
   };
-  // componentDidMount() {
-  //   this.authListener();
-  // }
+  componentDidMount() {
+    noteRef.get().then(response => {
+      this.setState({ notes: response.val() });
+    });
+  }
 
   // authListener() {
   //   fireConfig.auth().onAuthStateChanged(user => {
