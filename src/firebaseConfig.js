@@ -1,5 +1,6 @@
-import * as firebase from 'firebase';
-import 'firebase/auth';
+import firebase from 'firebase/app';
+import { auth, database } from 'firebase';
+// import 'firebase/database';
 
 const config = {
   apiKey: 'AIzaSyBIoEBMV4L0Jas-Ian-JOoJ5UWjns6mEeQ',
@@ -9,14 +10,16 @@ const config = {
   storageBucket: 'mynotes-102f5.appspot.com',
   messagingSenderId: '692460331905',
   appId: '1:692460331905:web:ba2b359620edb010aa3e80',
-  measurementId: 'G-R8CH6HRK7K'
+  measurementId: 'G-R8CH6HRK7K',
 };
 
-const fire = firebase.initializeApp(config);
-export const provider = new firebase.auth.GoogleAuthProvider();
-export const auth = firebase.auth();
+const firebaseConfig = {
+  app: firebase.initializeApp(config),
+  googleAuthProvider: new auth.GoogleAuthProvider(),
+  auth: firebase.auth(),
+  db: database(),
+  persistanceLocal: firebase.auth.Auth.Persistence.LOCAL,
+  persistanceSession: firebase.auth.Auth.Persistence.SESSION,
+};
 
-export const db = firestore.database();
-export const noteRef = db.child('notes');
-
-export default fire;
+export default firebaseConfig;

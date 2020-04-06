@@ -1,117 +1,119 @@
-import React, { Component } from 'react';
+import React, { createRef } from 'react';
 
-import fire, { provider, auth } from '../firebaseConfig';
-import google from '../img/google.jpeg';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-export default class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: ''
-    };
+export default function LoginForm(props) {
+  const emailEl = createRef();
+  const passwordEl = createRef();
+  const rememberEl = createRef();
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleSubmit(event) {
-    console.log(this.props);
-    event.preventDefault();
-    let { email, password } = this.state;
-
-    // if (email === 'lujan@lujan.com' && password === 'lujan') {
-    //   // Todo: Navigate to notes.
-    //   this.props.history.push('/My-notes');
-    // } else {
-    //   // Todo: Show error.
-    // }
-  }
-
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
-  }
-  OnSignInWitnEmailAndPass = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = this.state;
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.props.history.push('/My-notes');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    let email = emailEl.current.value;
+    let password = passwordEl.current.value;
+    let rememberMe = rememberEl.current.value === 'on';
+
+    if (email === '' || password === '') {
+      return;
+    }
+
+    props.onLogin(email, password, rememberMe);
   };
 
-  onGoogleSignInClicked = () => {
-    fire
-      .auth()
-      .signInWithPopup(provider)
-      .then(() => {
-        this.props.history.push('/My-notes');
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  return (
+    <center>
+      <Card body style={{ width: '40rem' }}>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              autoComplete="username"
+              ref={emailEl}
+            />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
 
-  render() {
-    return (
-      <div className="auth-wrapper">
-        <div className="auth-inner">
-          <form>
-            <h3>Sign In</h3>
-
-            <div className="form-group">
-              <label>Email address</label>
-              <input
-                type="email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChange}
-                className="form-control"
-                placeholder="Enter email"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChange}
-                className="form-control"
-                placeholder="Enter password"
-              />
-            </div>
-
-            <button
-              type="submit"
-              value="Submit"
-              className="btn btn-primary btn-block"
-              onClick={this.OnSignInWitnEmailAndPass}
-            >
-              Submit
-            </button>
-            <center>
-              <img
-                src={google}
-                alt="Logo google"
-                onClick={this.onGoogleSignInClicked}
-              />
-            </center>
-          </form>
-        </div>
-      </div>
-    );
-  }
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              autoComplete="current-password"
+              placeholder="Password"
+              ref={passwordEl}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="Remember me" ref={rememberEl} />
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </Form>
+      </Card>
+    </center>
+  );
 }
+
+//   onGoogleSignInClicked = () => {
+//     fire
+//       .auth()
+//       .signInWithPopup(provider)
+//       .then(() => {
+//         this.props.history.push('/My-notes');
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
+
+//       <div className="auth-wrapper">
+//         <div className="auth-inner">
+//           <form>
+//             <h3>Sign In</h3>
+//             <div className="form-group">
+//               <label>Email address</label>
+//               <input
+//                 type="email"
+//                 name="email"
+//                 value={this.state.email}
+//                 onChange={this.handleInputChange}
+//                 className="form-control"
+//                 placeholder="Enter email"
+//                 required
+//               />
+//             </div>
+//             <div className="form-group">
+//               <label>Password</label>
+//               <input
+//                 type="password"
+//                 name="password"
+//                 value={this.state.password}
+//                 onChange={this.handleInputChange}
+//                 className="form-control"
+//                 placeholder="Enter password"
+//               />
+//             </div>
+//             <button
+//               type="submit"
+//               value="Submit"
+//               className="btn btn-primary btn-block"
+//               onClick={this.OnSignInWitnEmailAndPass}
+//             >
+//               Submit
+//             </button>
+//             <center>
+//               <img
+//                 src={google}
+//                 alt="Logo google"
+//                 onClick={this.onGoogleSignInClicked}
+//               />
+//             </center>
+//           </form>
+//         </div>
+//       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -6,10 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import firebase from 'firebase';
-
-import { noteRef } from './firebaseConfig.js';
 
 class Notes extends React.Component {
   state = {
@@ -19,7 +16,7 @@ class Notes extends React.Component {
       // {
       //   id: 1,
       //   text: 'English book page 34-89'}
-    ]
+    ],
   };
 
   constructor(props) {
@@ -30,7 +27,7 @@ class Notes extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  getTitle = text => {
+  getTitle = (text) => {
     let title = text.split('\n')[0];
     if (title === '') {
       return 'Empty note';
@@ -55,27 +52,22 @@ class Notes extends React.Component {
   }
 
   setActive(id) {
-    this.props.history.push('/My-notes/' + id);
+    this.props.history.push('/notes/' + id);
 
     this.setState({
-      active: id
+      active: id,
     });
   }
 
   removeNotes() {
     const result = this.state.notes.filter(
-      note => note.id !== this.state.active
+      (note) => note.id !== this.state.active
     );
 
-    let active = null;
-    if (result.length > 0) {
-      active = result[0].id;
-    }
-
-    // let active = result.length > 0 ? result[0].id : null;
+    let active = result.length > 0 ? result[0].id : null;
 
     this.setState({
-      notes: result
+      notes: result,
     });
 
     this.setActive(active);
@@ -85,48 +77,17 @@ class Notes extends React.Component {
     console.log('handleCreate');
     let emptyNote = {
       id: this.getNextId(),
-      text: ''
+      text: '',
     };
     let notes = this.state.notes;
 
-    noteRef
-      .setValue({
-        id: '',
-        notes: notes
-      })
-      .then(response => {
-        this.setState({ note: emptyNotes });
-        return noteRef.get();
-      })
-      .then(response => {
-        this.setState({ notes: response.val() });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    //notes.unshift(emptyNote);
+    notes.unshift(emptyNote);
 
     this.setState({
-      notes: notes
+      notes: notes,
     });
     this.setActive(emptyNote.id);
   };
-  componentDidMount() {
-    noteRef.get().then(response => {
-      this.setState({ notes: response.val() });
-    });
-  }
-
-  // authListener() {
-  //   fireConfig.auth().onAuthStateChanged(user => {
-  //     if (user) {
-  //       this.setState({ user });
-  //     } else {
-  //       this.setState({ user: null });
-  //     }
-  //   });
-  // }
 
   render() {
     const activeNote = this.getActiveNote();
@@ -137,6 +98,7 @@ class Notes extends React.Component {
         <Container className="p-3">
           <Jumbotron>
             <h1>Write it down</h1>
+            {/* <img src={bookPen} alt="Logo book and pen"></img> */}
           </Jumbotron>
 
           <Row noGutters>
@@ -145,7 +107,7 @@ class Notes extends React.Component {
                 <Button variant="outline-primary" onClick={this.handleCreate}>
                   Create note
                 </Button>
-                {this.state.notes.map(note => {
+                {this.state.notes.map((note) => {
                   return (
                     <ListGroup.Item
                       key={note.id}
@@ -171,7 +133,7 @@ class Notes extends React.Component {
                   <br />
                   <Button
                     variant="outline-danger"
-                    onClick={event => this.removeNotes(event)}
+                    onClick={(event) => this.removeNotes(event)}
                   >
                     Delete
                   </Button>{' '}
