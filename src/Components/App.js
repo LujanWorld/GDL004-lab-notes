@@ -70,6 +70,18 @@ function App(props) {
       });
   }
 
+  function googleLogin() {
+    fire.auth
+      .signInWithPopup(fire.googleAuthProvider)
+      .then(() => {
+        console.log('Register successful!');
+        history.push('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   function logout() {
     fire.auth
       .signOut()
@@ -110,7 +122,7 @@ function App(props) {
 
       <Switch>
         <Route path="/login">
-          <LoginForm onLogin={login} />
+          <LoginForm onLogin={login} onGoogleLogin={googleLogin} />
         </Route>
         <Route path="/register">
           <RegisterForm onRegister={register} />

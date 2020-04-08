@@ -10,7 +10,7 @@ export default function LoginForm(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-
+  const [google, setGoogle] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -22,30 +22,21 @@ export default function LoginForm(props) {
   };
 
   const handleRememberMe = (event) => {
-    console.log(event.target.checked);
-    const {
-      target: { checked },
-    } = event;
-
+    var checked = event.target.checked === 'on';
     setRememberMe(checked);
   };
 
   const emailChange = (event) => {
-    // object destructuring
-    const {
-      target: { value },
-    } = event;
-
-    setEmail(value);
+    setEmail(event.target.value);
   };
   const passwordChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-
-    setPassword(value);
+    setPassword(event.target.value);
   };
 
+  const handleGoogle = (event) => {
+    event.preventDefault();
+    props.onGoogleLogin();
+  };
   // JS LAND
 
   // REACT LAND
@@ -74,6 +65,13 @@ export default function LoginForm(props) {
           <Button variant="primary" type="submit" onClick={handleSubmit}>
             Submit
           </Button>
+          <br></br>
+          <br></br>
+          {props.onGoogleLogin && (
+            <Button variant="primary" type="submit" onClick={handleGoogle}>
+              Login Google
+            </Button>
+          )}
         </Form>
       </Card>
     </center>
@@ -138,3 +136,22 @@ export default function LoginForm(props) {
 //           </form>
 //         </div>
 //       </div>
+
+// function googleLogin(email, password, rememberMe) {
+//   const persistance = rememberMe
+//     ? fire.persistanceLocal
+//     : fire.persistanceSession;
+
+//   fire.auth
+//     .setPersistence(persistance)
+//     .then(() => {
+//       fire.auth
+//       .signInWithPopup(provider)
+//         .then(() => {
+//           console.log('Register successful!');
+//           history.push('/');
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//         });
+//     })
