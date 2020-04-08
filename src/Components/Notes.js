@@ -151,3 +151,14 @@ class Notes extends React.Component {
   }
 }
 export default Notes;
+
+// export default function Notes(props) {
+//   state = {
+//     active: 1,
+
+//     notes: [
+
+//     ],
+//   };
+
+// }

@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Notes from './Notes';
 import LoginForm from './LoginForm';
-import SignUpForm from './SignUpForm';
+import RegisterForm from './RegisterForm';
 import PrivateRoute from './PrivateRoute';
 
 import Nav from 'react-bootstrap/Nav';
@@ -36,6 +36,29 @@ function App(props) {
           .signInWithEmailAndPassword(email, password)
           .then(() => {
             console.log('Login successful!');
+            history.push('/');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function register(email, password, rememberMe) {
+    const persistance = rememberMe
+      ? fire.persistanceLocal
+      : fire.persistanceSession;
+
+    fire.auth
+      .setPersistence(persistance)
+      .then(() => {
+        fire.auth
+          .createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            console.log('Register successful!');
             history.push('/');
           })
           .catch((error) => {
@@ -89,8 +112,10 @@ function App(props) {
         <Route path="/login">
           <LoginForm onLogin={login} />
         </Route>
+        <Route path="/register">
+          <RegisterForm onRegister={register} />
+        </Route>
         <Route path="/logout" render={logout} />
-
         <PrivateRoute
           exact
           isAuthenticated={isAuthenticated}

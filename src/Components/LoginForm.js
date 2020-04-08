@@ -1,19 +1,18 @@
-import React, { createRef } from 'react';
+import React, { useState, createRef } from 'react';
 
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-export default function LoginForm(props) {
-  const emailEl = createRef();
-  const passwordEl = createRef();
-  const rememberEl = createRef();
+import EmailField from './EmailField';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let email = emailEl.current.value;
-    let password = passwordEl.current.value;
-    let rememberMe = rememberEl.current.value === 'on';
+export default function LoginForm(props) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     if (email === '' || password === '') {
       return;
@@ -22,22 +21,39 @@ export default function LoginForm(props) {
     props.onLogin(email, password, rememberMe);
   };
 
+  const handleRememberMe = (event) => {
+    console.log(event.target.checked);
+    const {
+      target: { checked },
+    } = event;
+
+    setRememberMe(checked);
+  };
+
+  const emailChange = (event) => {
+    // object destructuring
+    const {
+      target: { value },
+    } = event;
+
+    setEmail(value);
+  };
+  const passwordChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    setPassword(value);
+  };
+
+  // JS LAND
+
+  // REACT LAND
   return (
     <center>
-      <Card body style={{ width: '40rem' }}>
+      <Card border="secondary" body style={{ width: '30rem' }}>
         <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              autoComplete="username"
-              ref={emailEl}
-            />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
+          <EmailField value={email} onChange={emailChange} />
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
@@ -45,11 +61,15 @@ export default function LoginForm(props) {
               type="password"
               autoComplete="current-password"
               placeholder="Password"
-              ref={passwordEl}
+              onChange={passwordChange}
             />
           </Form.Group>
           <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Remember me" ref={rememberEl} />
+            <Form.Check
+              type="checkbox"
+              onChange={handleRememberMe}
+              label="Remember me"
+            />
           </Form.Group>
           <Button variant="primary" type="submit" onClick={handleSubmit}>
             Submit
@@ -58,6 +78,7 @@ export default function LoginForm(props) {
       </Card>
     </center>
   );
+  // REACT LAND
 }
 
 //   onGoogleSignInClicked = () => {

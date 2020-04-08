@@ -4,6 +4,7 @@
 - [Instrucciones de uso](#Instrucciones-de-uso)
 - [Aplicacion](#Aplicacion)
 - [Herramientas](#herramientas)
+- [English version](#English)
 - [Proyecto terminado](#proyecto-terminado)
 - [Proyecto creado por:](#proyecto-creado-por:)
 
@@ -44,7 +45,33 @@ La App permite Crear, Eliminar y Actualizar notas.
 - [npm-scripts](https://docs.npmjs.com/misc/scripts)
 
 * Firebase
-* Ribbet
+
+# English
+
+### Project summary
+
+Currently with so much information going around it is important that we select
+valuable information. For this reason, it is highly recommended that we take notes, we always need
+record an address, phone number, some notes from a meeting, or even save
+our favorite URLs for later reference. Sometimes for this activity
+we use notebooks or diaries that end up being forgotten, or maybe we write down on some paper
+loose, and we risk losing such information.
+
+So for that we create technologies that support us to save our information from
+safely and also support global ecology. For these needs comes:
+
+# WriteNotes-App
+
+### Instructions:
+
+1. On the home screen you can create an account in the application by clicking on the `Sign up` link.
+2. The email and password fields must be filled, then click on the `Sign up` button.
+3. This action will automatically log you in, and take you to the main page where you can view, create, delete and edit the notes.
+4. To start the session with email and password, you must fill in the fields with the same name and click on the `Login` button.
+5. To log in with a Google account, you must click on the `Sign in with Google` button.
+6. Once on the main page, you can create notes by clicking on the `Create note` button.
+7. The created notes will be displayed. These can be edited or deleted.
+8. To log out, click on the link at the top right of the `Log out` icon.
 
 ### Proyecto terminado:
 
@@ -54,4 +81,4 @@ La App permite Crear, Eliminar y Actualizar notas.
 
 ### Proyecto creado por:
 
-Maria Lujan Navarro [LinkedIn](https://www.linkedin.com/in/lujan-navarro/)
+Made for Maria Lujan Navarro [LinkedIn](https://www.linkedin.com/in/lujan-navarro/)
