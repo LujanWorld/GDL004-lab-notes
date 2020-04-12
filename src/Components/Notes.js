@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Jumbotron from 'react-bootstrap/Jumbotron';
@@ -8,157 +8,122 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-class Notes extends React.Component {
-  state = {
-    active: 1,
+import useDebounceCallback from '../Hooks/useDebounceCallback';
+import useFirebaseUser from './../Hooks/useFirebaseUser';
+import useFirebaseNoteStore from './../Hooks/useFirebaseNoteStore';
+import fire from '../firebaseConfig';
+import { useHistory } from 'react-router';
 
-    notes: [
-      // {
-      //   id: 1,
-      //   text: 'English book page 34-89'}
-    ],
-  };
+export default function Notes(props) {
+  const history = useHistory();
+  const [active, setActive] = useState(props.match.params.noteId);
+  const [userData] = useFirebaseUser(fire.auth);
+  const [noteData, createNote, updateNote, deleteNote] = useFirebaseNoteStore(
+    fire.db,
+    userData.user.uid
+  );
+  const [text, setText] = useState();
 
-  constructor(props) {
-    super(props);
+  const [updateNoteDebounced, cancelUpdate] = useDebounceCallback(
+    updateNote,
+    2000
+  );
 
-    this.state.active = props.match.params.noteId;
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  getTitle = (text) => {
+  function getTitle(text) {
     let title = text.split('\n')[0];
     if (title === '') {
       return 'Empty note';
     }
     return title;
-  };
-
-  getNextId = () => this.state.notes.length + 1;
-
-  getActiveNote = () => {
-    for (let i = 0; i < this.state.notes.length; i++) {
-      if (this.state.notes[i].id === this.state.active) {
-        return this.state.notes[i];
-      }
-    }
-    return null;
-  };
-
-  handleChange(event) {
-    this.getActiveNote().text = event.target.value;
-    this.setState({ notes: this.state.notes });
   }
 
-  setActive(id) {
-    this.props.history.push('/notes/' + id);
-
-    this.setState({
-      active: id,
-    });
+  function handleSwitch(key) {
+    history.push('/notes/' + key);
+    setActive(key);
+    setText(noteData.notes[key].text);
   }
 
-  removeNotes() {
-    const result = this.state.notes.filter(
-      (note) => note.id !== this.state.active
-    );
-
-    let active = result.length > 0 ? result[0].id : null;
-
-    this.setState({
-      notes: result,
-    });
-
-    this.setActive(active);
+  function handleChange(e) {
+    const val = e.target.value;
+    setText(val);
+    updateNoteDebounced(active, val);
+  }
+  function handleRemove() {
+    cancelUpdate();
+    deleteNote(active);
   }
 
-  handleCreate = () => {
+  function handleCreate(e) {
     console.log('handleCreate');
     let emptyNote = {
-      id: this.getNextId(),
       text: '',
+      created: fire.TIMESTAMP,
     };
-    let notes = this.state.notes;
 
-    notes.unshift(emptyNote);
+    const key = createNote(emptyNote);
+    setActive(key);
+  }
 
-    this.setState({
-      notes: notes,
-    });
-    this.setActive(emptyNote.id);
-  };
+  useEffect(() => {
+    console.log('Updating active');
+    setText(noteData.notes[active]?.text);
+  }, [noteData.notes[active]]);
 
-  render() {
-    const activeNote = this.getActiveNote();
-    const showForm = activeNote !== null;
+  const showForm = noteData.notes[active];
+  if (noteData.loading) {
+    return <p>Loading ...</p>;
+  }
 
-    return (
-      <div className="App">
-        <Container className="p-3">
-          <Jumbotron>
-            <h1>Write it down</h1>
-            {/* <img src={bookPen} alt="Logo book and pen"></img> */}
-          </Jumbotron>
-
-          <Row noGutters>
-            <Col>
-              <ListGroup>
-                <Button variant="outline-primary" onClick={this.handleCreate}>
-                  Create note
-                </Button>
-                {this.state.notes.map((note) => {
+  return (
+    <div className="App">
+      <Container className="p-3">
+        <Jumbotron>
+          <h1>Write it down</h1>
+        </Jumbotron>
+        <Row noGutters>
+          <Col>
+            <ListGroup>
+              <Button variant="outline-primary" onClick={handleCreate}>
+                Create note
+              </Button>
+              {Object.entries(noteData.notes)
+                .reverse()
+                .map(([key, note]) => {
                   return (
                     <ListGroup.Item
-                      key={note.id}
-                      active={note.id === this.state.active}
+                      key={key}
+                      active={key === active}
                       onClick={() => {
-                        this.setActive(note.id);
+                        handleSwitch(key);
                       }}
                     >
-                      {this.getTitle(note.text)}
+                      {getTitle(note.text)}
                     </ListGroup.Item>
                   );
                 })}
-              </ListGroup>
-            </Col>
-            <Col xs={8}>
-              {showForm ? (
-                <Form>
-                  <Form.Control
-                    as="textarea"
-                    value={this.getActiveNote().text}
-                    onChange={this.handleChange}
-                  ></Form.Control>
-                  <br />
-                  <Button
-                    variant="outline-danger"
-                    onClick={(event) => this.removeNotes(event)}
-                  >
-                    Delete
-                  </Button>{' '}
-                </Form>
-              ) : (
-                <center>
-                  <h3> Welcome, create a new note!</h3>
-                </center>
-              )}
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
-  }
+            </ListGroup>
+          </Col>
+          <Col xs={8}>
+            {showForm ? (
+              <Form>
+                <Form.Control
+                  as="textarea"
+                  value={text}
+                  onChange={handleChange}
+                ></Form.Control>
+                <br />
+                <Button variant="outline-danger" onClick={handleRemove}>
+                  Delete
+                </Button>
+              </Form>
+            ) : (
+              <center>
+                <h3> Welcome, create a new note!</h3>
+              </center>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 }
-export default Notes;
-
-// export default function Notes(props) {
-//   state = {
-//     active: 1,
-
-//     notes: [
-
-//     ],
-//   };
-
-// }

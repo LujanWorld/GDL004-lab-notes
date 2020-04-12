@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Switch, Route, Link, useHistory } from 'react-router-dom';
 
 import './App.css';
@@ -17,60 +17,70 @@ import fire from '../firebaseConfig';
 import useFirebaseUser from './../Hooks/useFirebaseUser';
 
 function App(props) {
-  const userData = useFirebaseUser(fire.auth);
+  const [userData, reset] = useFirebaseUser(fire.auth);
   const loading = userData.loading;
   const user = userData.user;
   const isAuthenticated = !!user;
 
   const history = useHistory();
 
-  function login(email, password, rememberMe) {
-    const persistance = rememberMe
-      ? fire.persistanceLocal
-      : fire.persistanceSession;
+  const login = useCallback(
+    (email, password, rememberMe) => {
+      reset();
+      const persistance = rememberMe
+        ? fire.persistanceLocal
+        : fire.persistanceSession;
 
-    fire.auth
-      .setPersistence(persistance)
-      .then(() => {
-        fire.auth
-          .signInWithEmailAndPassword(email, password)
-          .then(() => {
-            console.log('Login successful!');
-            history.push('/');
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+      fire.auth
+        .setPersistence(persistance)
+        .then(() => {
+          fire.auth
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+              console.log('Login successful!');
+              history.push('/');
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    [reset, history]
+  );
 
-  function register(email, password, rememberMe) {
-    const persistance = rememberMe
-      ? fire.persistanceLocal
-      : fire.persistanceSession;
+  const register = useCallback(
+    (email, password, rememberMe) => {
+      reset();
+      const persistance = rememberMe
+        ? fire.persistanceLocal
+        : fire.persistanceSession;
 
-    fire.auth
-      .setPersistence(persistance)
-      .then(() => {
-        fire.auth
-          .createUserWithEmailAndPassword(email, password)
-          .then(() => {
-            console.log('Register successful!');
-            history.push('/');
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+      fire.auth
+        .setPersistence(persistance)
+        .then(() => {
+          fire.auth
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => {
+              console.log('Register successful!');
+              history.push('/');
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    [reset, history]
+  );
 
-  function googleLogin() {
+  const googleLogin = useCallback(() => {
+    console.log('Here Google');
+    reset();
     fire.auth
       .signInWithPopup(fire.googleAuthProvider)
       .then(() => {
@@ -80,24 +90,27 @@ function App(props) {
       .catch((error) => {
         console.log(error);
       });
-  }
+  }, [reset, history]);
 
-  function logout() {
+  const logout = useCallback(() => {
     fire.auth
       .signOut()
       .then(() => {
         console.log('Logout has been successful');
+        reset();
         history.push('/');
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  }, [reset, history]);
 
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">WriteNotes</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          WriteNotes
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
@@ -139,6 +152,8 @@ function App(props) {
           exact
           isAuthenticated={isAuthenticated}
           isLoading={loading}
+          user={user}
+          db={fire.db}
           path="/notes/:noteId?"
           component={Notes}
         />

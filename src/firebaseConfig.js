@@ -1,6 +1,6 @@
-import firebase from 'firebase/app';
-import { auth, database } from 'firebase';
-// import 'firebase/database';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 
 const config = {
   apiKey: 'AIzaSyBIoEBMV4L0Jas-Ian-JOoJ5UWjns6mEeQ',
@@ -15,11 +15,12 @@ const config = {
 
 const firebaseConfig = {
   app: firebase.initializeApp(config),
-  googleAuthProvider: new auth.GoogleAuthProvider(),
+  googleAuthProvider: new firebase.auth.GoogleAuthProvider(),
   auth: firebase.auth(),
-  db: database(),
+  db: firebase.database(),
   persistanceLocal: firebase.auth.Auth.Persistence.LOCAL,
   persistanceSession: firebase.auth.Auth.Persistence.SESSION,
+  TIMESTAMP: firebase.database.ServerValue.TIMESTAMP,
 };
 
 export default firebaseConfig;

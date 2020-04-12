@@ -1,8 +1,5 @@
-import React, { createRef } from 'react';
-
-import Card from 'react-bootstrap/Card';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
 const EmailField = ({ value, onChange, label }) => (
   <Form.Group controlId="formBasicPassword">

@@ -9,6 +9,13 @@ export default function useFirebaseUser(auth) {
     };
   });
 
+  function reset() {
+    setUser({
+      loading: true,
+      user: undefined,
+    });
+  }
+
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((u) => {
       console.log('Auth changed', u);
@@ -24,5 +31,5 @@ export default function useFirebaseUser(auth) {
     };
   }, [auth]);
 
-  return user;
+  return [user, reset];
 }
