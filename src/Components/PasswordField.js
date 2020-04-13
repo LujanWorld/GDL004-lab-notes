@@ -7,7 +7,7 @@ const EmailField = ({ value, onChange, label }) => (
     <Form.Control
       type="password"
       autoComplete="current-password"
-      placeholder="Password"
+      placeholder="🔒Enter Password"
       value={value}
       onChange={onChange}
     />

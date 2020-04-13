@@ -25,7 +25,6 @@ export default function useFirebaseUser(auth) {
       });
     });
 
-    // Cleanup.
     return () => {
       unsub();
     };

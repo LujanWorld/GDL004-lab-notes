@@ -23,10 +23,10 @@ function App(props) {
       <div className="App">
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="#home">WriteNotes</Navbar.Brand>
+
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
-              {/* // Todo: use router link. */}
               <Nav.Link href="/login">Login</Nav.Link>
               <Nav.Link href="/login">Logout</Nav.Link>
               <Nav.Link href="/login">Register</Nav.Link>

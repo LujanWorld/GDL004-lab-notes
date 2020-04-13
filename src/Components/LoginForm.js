@@ -7,6 +7,8 @@ import '../index.css';
 
 import EmailField from './EmailField';
 
+import Google from './Google.jpeg';
+
 export default function LoginForm(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,13 +43,9 @@ export default function LoginForm(props) {
 
   return (
     <center>
-      <Card
-        className="login"
-        border="secondary"
-        body
-        style={{ width: '30rem' }}
-      >
+      <Card className="login" body style={{ width: '25rem' }}>
         <Form>
+          <h3>Sign In</h3>
           <EmailField value={email} onChange={emailChange} />
 
           <Form.Group controlId="formBasicPassword">
@@ -55,7 +53,7 @@ export default function LoginForm(props) {
             <Form.Control
               type="password"
               autoComplete="current-password"
-              placeholder="Password"
+              placeholder=" 🔒Enter Password"
               onChange={passwordChange}
             />
           </Form.Group>
@@ -72,9 +70,12 @@ export default function LoginForm(props) {
           <br></br>
           <br></br>
           {props.onGoogleLogin && (
-            <Button variant="primary" type="submit" onClick={handleGoogle}>
-              Login Google
-            </Button>
+            <img
+              className="box"
+              src={Google}
+              alt="Logo"
+              onClick={handleGoogle}
+            />
           )}
         </Form>
       </Card>
