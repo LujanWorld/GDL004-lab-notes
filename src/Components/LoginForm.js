@@ -13,13 +13,19 @@ export default function LoginForm(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (email === '' || password === '') {
-      return;
+    const form = event.currentTarget;
+    // if (email === '' || password === '') {
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
     }
+
+    setValidated(true);
+    // }
 
     props.onLogin(email, password, rememberMe);
   };
@@ -44,10 +50,10 @@ export default function LoginForm(props) {
   return (
     <center>
       <Card className="login" body style={{ width: '25rem' }}>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <h3>Sign In</h3>
           <EmailField value={email} onChange={emailChange} />
-
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -56,6 +62,9 @@ export default function LoginForm(props) {
               placeholder=" 🔒Enter Password"
               onChange={passwordChange}
             />
+            <Form.Control.Feedback type="invalid">
+              Please choose a Password.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="formBasicCheckbox">
             <Form.Check
@@ -64,7 +73,7 @@ export default function LoginForm(props) {
               label="Remember me"
             />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button variant="primary" type="submit">
             Submit
           </Button>
           <br></br>
