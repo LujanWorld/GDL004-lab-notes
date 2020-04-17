@@ -10,7 +10,12 @@ const EmailField = ({ value, onChange, label }) => (
       placeholder="🔒Enter Password"
       value={value}
       onChange={onChange}
+      minlength="8"
+      required
     />
+    <Form.Control.Feedback type="invalid">
+      Please choose a Password.
+    </Form.Control.Feedback>
   </Form.Group>
 );
 

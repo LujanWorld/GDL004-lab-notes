@@ -40,7 +40,13 @@ html,
   border-radius: 45px;
   margin-top: 50px;
 }
+.button {
+  display: flex;
+  align-items: center;
+}
 
 .box:hover {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 }

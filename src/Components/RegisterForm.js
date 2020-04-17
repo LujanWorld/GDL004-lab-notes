@@ -11,17 +11,16 @@ export default function RegisterForm(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
-
+  const [validated, setValidated] = useState(false);
   const handleSubmitRe = (e) => {
     e.preventDefault();
 
-    if (email === '' || password === '') {
-      return;
-    }
+    const form = e.currentTarget;
 
-    if (password !== passwordRepeat) {
-      return;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
     }
+    setValidated(true);
 
     props.onRegister(email, password);
   };
@@ -46,20 +45,29 @@ export default function RegisterForm(props) {
         body
         style={{ width: '30rem' }}
       >
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleSubmitRe}>
           <EmailField id="email" value={email} onChange={emailChange} />
           <PasswordField
             id="password"
             value={password}
             onChange={passwordChange}
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please choose a Password.
+          </Form.Control.Feedback>
           <PasswordField
             value={passwordRepeat}
             onChange={passwordRepeatChange}
             label="Repeat Password"
             id="passwordRepeat"
+            minlength="8"
+            required
           />
-          <Button variant="primary" type="submit" onClick={handleSubmitRe}>
+          <Form.Control.Feedback type="invalid">
+            Please choose a Password.
+          </Form.Control.Feedback>
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>

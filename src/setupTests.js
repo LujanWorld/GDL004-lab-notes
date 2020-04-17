@@ -5,7 +5,14 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import LoginForm from './Components/LoginForm';
+import firebase from '../firebaseConfig';
+import App from './Components/App';
 test('allows the user to login successfully', async () => {
   const fakeUserResponse = { token: 'fake_user_token' };
+  jest.spyOn(firebase, 'auth').mockImplementationOnce(() => {
+    return Promise.resolve({
+      json: () => Promise.resolve(fakeUserResponse),
+    });
+  });
+  const { getByLabelText, getByText, findByRole } = render(<Login />);
 });
