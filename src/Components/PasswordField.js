@@ -5,6 +5,7 @@ const EmailField = ({ value, onChange, label }) => (
   <Form.Group controlId="formBasicPassword">
     <Form.Label>{label || 'Password'}</Form.Label>
     <Form.Control
+      data-testid="password-input"
       type="password"
       autoComplete="current-password"
       placeholder="🔒Enter Password"

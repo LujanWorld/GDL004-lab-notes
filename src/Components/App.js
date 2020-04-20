@@ -5,7 +5,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Notes from './Notes';
-import LoginForm from './LoginForm';
+// import LoginForm from './LoginForm';
+import Login from './Login';
 import RegisterForm from './RegisterForm';
 import PrivateRoute from './PrivateRoute';
 
@@ -135,7 +136,7 @@ function App(props) {
 
       <Switch>
         <Route path="/login">
-          <LoginForm onLogin={login} onGoogleLogin={googleLogin} />
+          <Login onLogin={login} onGoogleLogin={googleLogin} />
         </Route>
         <Route path="/register">
           <RegisterForm onRegister={register} />

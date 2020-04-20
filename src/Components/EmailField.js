@@ -3,14 +3,16 @@ import Form from 'react-bootstrap/Form';
 
 const EmailField = ({ value, onChange }) => (
   <Form.Group controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
+    <Form.Label htmlFor="email">Email address</Form.Label>
     <Form.Control
+      data-testid="email-input"
+      id="email"
       type="email"
       placeholder="Enter email"
       autoComplete="username"
       value={value}
       onChange={onChange}
-      minlength="8"
+      minLength="8"
       required
     />
     <Form.Control.Feedback type="invalid">
