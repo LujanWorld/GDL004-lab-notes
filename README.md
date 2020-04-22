@@ -1,68 +1,84 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Índice
 
-## Available Scripts
+- [Resumen del proyecto](#resumen-del-proyecto)
+- [Instrucciones de uso](#Instrucciones-de-uso)
+- [Aplicacion](#Aplicacion)
+- [Herramientas](#herramientas)
+- [English version](#English)
+- [Proyecto terminado](#proyecto-terminado)
+- [Proyecto creado por:](#proyecto-creado-por:)
 
-In the project directory, you can run:
+## Resumen del proyecto
 
-### `yarn start`
+En la actudalidad con tanto bombardeo de informacion dando vueltas es importante que seleccionemos
+la informacion valiosa. Por este motivo, es muy recomendable que tomemos notas, siempre necesitamos
+apuntar alguna dirección, número telefónico, algunos notas de alguna reunión, o hasta guardar
+nuestras URLs favoritas para poder consultarlas más tarde. Muchas veces para esta actividad
+utilizamos libretas o agendas que terminan siendo olvidadas, o quizas anotamos en algun papel
+suelto, y nos arriesgamos a perder dicha información.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Por eso surge la necesidad de crear tecnologías que nos apoyen a guardar nuestra información de
+manera segura y además apoyar a ecología mundial. Para estas necesidades llega:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# WriteNotes-App
 
-### `yarn test`
+## Instrucciones de uso
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. En la pantalla de inicio se podrá crear una cuenta en la aplicación dando clic en el link `Sign up`.
+2. Se deberán llenar los 2 campos obligatorios de email y password, posteriormente dar clic en el botón `Sign up`.
+3. Esta acción iniciará sesión automáticamente y te llevará a la página principal donde podrán visualizar, crear, eliminar y editar las notas.
+4. Para iniciar sesión con email y password se deberán llenar los campos del mismo nombre y dar clic en el botón de `Sig in`.
+5. Para iniciar sesión con una cuenta de Google se deberá dar clic en el botón de `Sign in with Google`.
+6. Una vez en la página principal, se podrán crear notas al dar clic en el boton `Create note`.
+7. Se visualizarán las notas creadas. Estas se podrán editar o eliminar.
+8. Para cerrar sesión dar clic en el link de la parte superior derecha en el ícono de `Log out`.
 
-### `yarn build`
+### Aplicación
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+La App permite Crear, Eliminar y Actualizar notas.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Herramientas
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [Reactjs](https://reactjs.org/)
+- [create-react-app](https://create-react-app.dev/docs/getting-started)
+- [react-router](https://reacttraining.com/react-router/web/guides/quick-start)
+- [npm-scripts](https://docs.npmjs.com/misc/scripts)
 
-### `yarn eject`
+* Firebase
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# English
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Project summary
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Currently with so much information going around it is important that we select
+valuable information. For this reason, it is highly recommended that we take notes, we always need
+record an address, phone number, some notes from a meeting, or even save
+our favorite URLs for later reference. Sometimes for this activity
+we use notebooks or diaries that end up being forgotten, or maybe we write down on some paper
+loose, and we risk losing such information.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+So for that we create technologies that support us to save our information from
+safely and also support global ecology. For these needs comes:
 
-## Learn More
+# WriteNotes-App
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Instructions:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. On the home screen you can create an account in the application by clicking on the `Sign up` link.
+2. The email and password fields must be filled, then click on the `Sign up` button.
+3. This action will automatically log you in, and take you to the main page where you can view, create, delete and edit the notes.
+4. To start the session with email and password, you must fill in the fields with the same name and click on the `Login` button.
+5. To log in with a Google account, you must click on the `Sign in with Google` button.
+6. Once on the main page, you can create notes by clicking on the `Create note` button.
+7. The created notes will be displayed. These can be edited or deleted.
+8. To log out, click on the link at the top right of the `Log out` icon.
 
-### Code Splitting
+### Proyecto terminado:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+![Alt text](/assets/lab-notes1.png?raw=true 'Login Page')
 
-### Analyzing the Bundle Size
+![Alt text](/assets/lab-notes2.png?raw=true 'Main Page')
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Proyecto creado por:
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Made for Maria Lujan Navarro [LinkedIn](https://www.linkedin.com/in/lujan-navarro/)
