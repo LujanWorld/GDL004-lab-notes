@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 
 const EmailField = ({ value, onChange, label }) => (
-  <Form.Group controlId="formBasicPassword">
+  <Form.Group>
     <Form.Label>{label || 'Password'}</Form.Label>
     <Form.Control
       data-testid="password-input"
@@ -11,7 +11,6 @@ const EmailField = ({ value, onChange, label }) => (
       placeholder="🔒Enter Password"
       value={value}
       onChange={onChange}
-      minlength="8"
       required
     />
     <Form.Control.Feedback type="invalid">

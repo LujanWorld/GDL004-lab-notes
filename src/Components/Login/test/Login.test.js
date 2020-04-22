@@ -54,14 +54,13 @@ test('should call onLogin when submit', () => {
   );
 });
 
-test('should call googleLogin when submit', () => {
-  const googleLogin = jest.fn();
-  const { getByTestId } = render(<Login googleLogin={googleLogin} />);
+test('should call onGoogleLogin when submit', () => {
+  const onGoogleLogin = jest.fn();
+  const { getByTestId } = render(<Login onGoogleLogin={onGoogleLogin} />);
 
   const submitButton = getByTestId('submit-google');
 
   fireEvent.click(submitButton);
 
-  expect(googleLogin).toHaveBeenCalledTimes(1);
-
+  expect(onGoogleLogin).toHaveBeenCalledTimes(1);
 });

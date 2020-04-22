@@ -14,7 +14,6 @@ export default function LoginForm(props) {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [validated, setValidated] = useState(false);
-  // const [isValidForm, setIsValidForm] = useState(true);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -52,7 +51,7 @@ export default function LoginForm(props) {
           <h3>Sign In</h3>
           <EmailField value={email} onChange={emailChange} />
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group>
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -68,7 +67,7 @@ export default function LoginForm(props) {
               Please choose a Password.
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
+          <Form.Group>
             <Form.Check
               type="checkbox"
               onChange={handleRememberMe}
@@ -83,11 +82,11 @@ export default function LoginForm(props) {
           >
             Submit
           </Button>
-          <br></br>
-          <br></br>
+          {/* <br></br>
+          <br></br> */}
           {props.onGoogleLogin && (
             <img
-            data-testid="submit-google"
+              data-testid="submit-google"
               className="box"
               src={Google}
               alt="Logo"
