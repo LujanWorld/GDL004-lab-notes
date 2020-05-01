@@ -82,8 +82,6 @@ export default function LoginForm(props) {
           >
             Submit
           </Button>
-          {/* <br></br>
-          <br></br> */}
           {props.onGoogleLogin && (
             <img
               data-testid="submit-google"

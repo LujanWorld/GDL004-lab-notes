@@ -14,7 +14,6 @@ export default function LoginForm(props) {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [validated, setValidated] = useState(false);
-  // const [isValidForm, setIsValidForm] = useState(true);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -78,8 +77,7 @@ export default function LoginForm(props) {
           <Button className="button" variant="primary" type="submit">
             Submit
           </Button>
-          <br></br>
-          <br></br>
+
           {props.onGoogleLogin && (
             <img
               className="box"

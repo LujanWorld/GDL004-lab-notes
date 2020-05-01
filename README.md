@@ -79,6 +79,8 @@ safely and also support global ecology. For these needs comes:
 
 ![Alt text](/assets/lab-notes2.png?raw=true 'Main Page')
 
+[Link al Proyecto](https://mynotes-102f5.web.app/login)
+
 ### Proyecto creado por:
 
 Made for Maria Lujan Navarro [LinkedIn](https://www.linkedin.com/in/lujan-navarro/)
